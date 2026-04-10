@@ -43,25 +43,17 @@ footer a:hover {
   background: #f3ece4;
 }
 
-.legend-item a {
-  display: inline-block;
-  margin-top: 6px;
-  font-weight: 600;
-  color: #333;
-}
-.legend-item a:hover {
-  text-decoration: underline;
-}
-
-
-* About section */
+/* About section */
 #about {
   background: #ffffff;
   padding: 60px 20px;
+  display: flex; /* necesario para que flex-direction funcione */
 }
 .about-container {
   max-width: 1000px;
   margin: auto;
+  display: flex;
+  align-items: center;
 }
 .about-text {
   max-width: 700px;
@@ -100,12 +92,10 @@ footer a:hover {
 .legend {
   margin-top: 40px;
 }
-
 .legend h3 {
   margin-bottom: 20px;
   color: #406f6a;
 }
-
 .legend-item {
   padding: 15px;
   border-radius: 8px;
@@ -113,11 +103,21 @@ footer a:hover {
   display: flex;
   flex-direction: column;
   gap: 5px;
-
   /* ✨ Animación */
   opacity: 0;
   transform: translateY(20px);
   animation: fadeUp 0.6s ease forwards;
+}
+.legend-item a {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: underline;
+}
+.legend-item a:hover {
+  text-decoration: underline;
 }
 
 .legend-item:nth-child(2) { animation-delay: 0.1s; }
@@ -127,16 +127,9 @@ footer a:hover {
 .legend-item strong {
   font-size: 16px;
 }
-
 .legend-item span {
   font-size: 14px;
   color: #555;
-}
-
-.legend-item a {
-  font-size: 14px;
-  color: #333;
-  text-decoration: underline;
 }
 
 td.slot {
