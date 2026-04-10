@@ -7,7 +7,7 @@
   "timeSlots":["06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","18:00 - 19:00"],
   "week":{
     "Monday":{"09:00 - 10:00":{"gym":"Vibrant Pilates"}},
-    "Wednesday":{"18:00 - 19:00":{"gym":"Pilates Pure Motion"}},
+    "Wednesday":{"09:00 - 10:00":{"gym":"Vibrant Pilates"},"18:00 - 19:00":{"gym":"Pilates Pure Motion"}},
     "Friday":{"08:00 - 09:00":{"gym":"Laira Balance"}}
   }
 }
