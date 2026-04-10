@@ -18,12 +18,8 @@ function renderCalendar(data) {
       const slot = data.week[day] && data.week[day][time];
 
       if (slot) {
-        const gym = data.gyms[slot.gym];
-        row.innerHTML += `
-          <td class="slot gym-${gym.id}">
-           <a href="${gym.urlSchedule}" target="_blank"> ${slot.gym} </a>
-          </td>
-        `;
+        const gym = data.gyms[slot.gym];        
+        row.insertAdjacentHTML("beforeend", `<td class="slot gym-${gym.id}"><a href="${gym.urlSchedule}" target="_blank"> ${slot.gym} </a></td>`);
       } else {
         row.innerHTML += `<td class="empty"></td>`;
       }
