@@ -77,6 +77,14 @@ footer {
   .about-text {
     text-align: center;
   }
+  #about {
+    flex-direction: column;
+    text-align: center;
+  }
+  #about img {
+    width: 100%;
+    max-width: 300px;
+  }
 }
 
 
