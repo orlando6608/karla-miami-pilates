@@ -2,7 +2,7 @@
   "gyms":{
     "Vibrant Pilates":{"id":"vibrant","address":"16227 SW 88th St, Miami, FL 33196","url":"https://vpvibrantpilates.com", "urlSchedule":"https://www.vpvibrantpilates.com/schedule/"},
     "Pilates Pure Motion":{"id":"pure","address":"11609 SW 88th St, Miami, FL 33176","url":"https://pilatespuremotion.com", "urlSchedule":"https://www.pilatespuremotion.com/booking-calendar"},
-    "Laira Balance":{"id":"laira","address":"4314 NW 2nd Ave, Miami, FL 33127","url":"https://lairabalance.co", "urlSchedule":"https://lairabalance.com/en/schedule/"}
+    "Laira Balance":{"id":"laira","address":"4314 NW 2nd Ave, Miami, FL 33127","url":"https://lairabalance.com", "urlSchedule":"https://lairabalance.com/en/schedule/"}
   },
   "timeSlots":["06:00","06:30","07:00","07:30","08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","18:00","18:30"],
   "week":{
