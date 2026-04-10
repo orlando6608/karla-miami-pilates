@@ -21,6 +21,7 @@ function renderCalendar(data) {
         const gym = data.gyms[slot.gym];
         row.innerHTML += `
           <td class="slot gym-${gym.id}">
+           <a>
             ${gym.url}
               ${slot.gym}
             </a>
