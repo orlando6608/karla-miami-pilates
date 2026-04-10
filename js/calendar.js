@@ -4,7 +4,8 @@ fetch("data/availability.json")
   .then(data => {
     renderCalendar(data);
     renderLegend(data.gyms);
-  });
+  })
+  .catch(err => console.error("Error loading availability:", err));
 
 function renderCalendar(data) {
   const tbody = document.querySelector("#schedule tbody");
