@@ -1,8 +1,6 @@
 body{font-family:Arial;margin:0;padding:0;background:#fafafa;}
 .table-wrapper{overflow-x:auto;}
 
-
-
 /* 🎨 Gym colors */
 .gym-vibrant {
   background: #d9f2e6;
@@ -26,6 +24,44 @@ body{font-family:Arial;margin:0;padding:0;background:#fafafa;}
 
 .legend-item a:hover {
   text-decoration: underline;
+}
+
+
+* 🧘‍♀️ About section */
+#about {
+  background: #ffffff;
+  padding: 60px 20px;
+}
+
+.about-container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.about-text {
+  max-width: 700px;
+  
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.about-text h2 {
+  color: #406f6a;
+  margin-top: 0;
+}
+
+.about-text p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .about-text {
+    text-align: center;
+  }
 }
 
 
