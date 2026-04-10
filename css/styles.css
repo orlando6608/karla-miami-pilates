@@ -1,0 +1,37 @@
+body{font-family:Arial;margin:0;padding:0;background:#fafafa;}
+.table-wrapper{overflow-x:auto;}
+
+
+
+/* 🎨 Gym colors */
+.gym-vibrant {
+  background: #d9f2e6;
+}
+
+.gym-pure {
+  background: #e1ecf7;
+}
+
+.gym-laira {
+  background: #f3ece4;
+}
+
+
+.legend-item a {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 600;
+  color: #333;
+}
+
+.legend-item a:hover {
+  text-decoration: underline;
+}
+
+
+/* ✨ Animations */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
