@@ -4,7 +4,7 @@
     "Pilates Pure Motion":{"id":"pure","address":"11609 SW 88th St, Miami, FL 33176","url":"https://pilatespuremotion.com"},
     "Laira Balance":{"id":"laira","address":"4314 NW 2nd Ave, Miami, FL 33127","url":"https://lairabalance.com"}
   },
-  "timeSlots":["08:00 - 09:00","09:00 - 10:00","18:00 - 19:00"],
+  "timeSlots":["06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","18:00 - 19:00"],
   "week":{
     "Monday":{"09:00 - 10:00":{"gym":"Vibrant Pilates"}},
     "Wednesday":{"18:00 - 19:00":{"gym":"Pilates Pure Motion"}},
