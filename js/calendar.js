@@ -8,7 +8,7 @@ fetch("data/availability.json")
 
 function renderCalendar(data) {
   const tbody = document.querySelector("#schedule tbody");
-  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   data.timeSlots.forEach(time => {
     const row = document.createElement("tr");
