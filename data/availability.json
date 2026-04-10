@@ -8,6 +8,7 @@
   "week":{
     "Monday":{"09:00":{"gym":"Vibrant Pilates"}},
     "Wednesday":{"09:00":{"gym":"Vibrant Pilates"},"18:00":{"gym":"Pilates Pure Motion"}},
-    "Friday":{"08:00":{"gym":"Laira Balance"}}
+    "Friday":{"08:00":{"gym":"Laira Balance"}},
+    "Saturday":{"10:30":{"gym":"Laira Balance"}, "11:30":{"gym":"Laira Balance"}}
   }
 }
