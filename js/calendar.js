@@ -39,9 +39,17 @@ function renderLegend(gyms) {
     const gym = gyms[name];
     const encodedAddress = encodeURIComponent(gym.address);
 
-    const mapsUrl = isMobile
-      ? `maps://?q=${encodedAddress}`
-      : `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+    let mapsUrl;
+    if (isIOS) {
+      // Apple Maps en iOS
+      mapsUrl = `maps://?q=${encodedAddress}`;
+    } else if (isAndroid) {
+      // Google Maps app en Android — el esquema geo: abre la app nativa
+      mapsUrl = `geo:0,0?q=${encodedAddress}`;
+    } else {
+      // Escritorio — Google Maps en navegador
+      mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+    }
 
     const item = document.createElement("div");
     item.className = `legend-item gym-${gym.id}`;
