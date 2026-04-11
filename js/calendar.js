@@ -33,7 +33,10 @@ function renderCalendar(data) {
 
 function renderLegend(gyms) {
   const legend = document.getElementById("legend");
-  const isMobile = navigator.userAgentData?.mobile ?? /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+   // Detección de plataforma
+  const ua = navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+  const isAndroid = /Android/i.test(ua);
 
   Object.keys(gyms).forEach((name, index) => {
     const gym = gyms[name];
