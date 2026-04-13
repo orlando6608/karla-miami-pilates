@@ -5,7 +5,15 @@ fetch("data/availability.json")
     renderLegend(data.gyms);
     addDatesToTableHeader("schedule");
   })
-  .catch(err => console.error("Error loading availability:", err));
+  .catch(err => {
+    console.error("Error loading availability:", err);
+    const tbody = document.querySelector("#schedule tbody");
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2rem;color:#999;">
+        Schedule unavailable. Please check back later or contact us directly.
+      </td></tr>`;
+    }
+  });
 
 function renderCalendar(data) {
   const tbody = document.querySelector("#schedule tbody");

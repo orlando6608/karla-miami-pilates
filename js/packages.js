@@ -1,7 +1,15 @@
 fetch("data/packages.json")
   .then(res => res.json())
   .then(data => renderPackages(data.packages))
-  .catch(err => console.error("Error loading packages:", err));
+  .catch(err => {
+    console.error("Error loading packages:", err);
+    const container = document.getElementById("packages-container");
+    if (container) {
+      container.innerHTML = `<p style="text-align:center;color:#999;">
+        Package information unavailable. Please contact us directly.
+      </p>`;
+    }
+  });
 
 function renderPackages(packages) {
   const container = document.getElementById("packages-container");
@@ -19,7 +27,7 @@ function renderPackages(packages) {
         <li>${pkg.duration}</li>
         <li>${pkg.description}</li>
         <li>${pkg.location}</li>
-        <li>Photographer: ${pkg.photographer}</li>
+        <li>Professional photo session: ${pkg.photoSession}</li>
       </ul>
 
       <p class="price">${pkg.price}</p>

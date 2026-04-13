@@ -7,7 +7,7 @@
       "duration": "50 minutes",
       "description": "Fully personalized Pilates session tailored to individual goals.",
       "location": "Flexible location",
-      "photographer": "Optional",
+      "photoSession": "Optional",
       "price": "Starting from $120"
     },
     {
@@ -17,7 +17,8 @@
       "duration": "50 minutes",
       "description": "Shared personalized training for two people.",
       "location": "Flexible location",
-      "photographer": "Optional",
+      "photoSession": "Optional",
+      "featured": true,
       "price": "Starting from $160"
     },
     {
@@ -27,7 +28,7 @@
       "duration": "50 minutes",
       "description": "Group-focused Pilates experience designed for small groups.",
       "location": "Flexible location",
-      "photographer": "Included",
+      "photoSession": "Included",
       "price": "Starting from $220"
     }
   ]
