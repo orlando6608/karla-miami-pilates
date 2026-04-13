@@ -764,3 +764,17 @@ body.internal-page .nav-brand a {
   }
 }
 
+/* =========================================================
+   📆 Table header day + date
+   ========================================================= */
+
+.day-name {
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+.day-date {
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-top: 2px;
+}

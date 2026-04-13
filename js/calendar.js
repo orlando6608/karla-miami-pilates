@@ -3,6 +3,7 @@ fetch("data/availability.json")
   .then(data => {
     renderCalendar(data);
     renderLegend(data.gyms);
+    addDatesToTableHeader("schedule");
   })
   .catch(err => console.error("Error loading availability:", err));
 
@@ -58,4 +59,39 @@ function renderLegend(gyms) {
     legend.appendChild(item);
   });
   
+}
+
+function addDatesToTableHeader(tableId) {
+  const table = document.getElementById(tableId);
+  if (!table) return;
+
+  const headerCells = table.querySelectorAll("thead th");
+
+  // Get current date
+  const today = new Date();
+
+  // Calculate Monday of current week
+  const day = today.getDay(); // 0 (Sun) - 6 (Sat)
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  const monday = new Date(today);
+  monday.setDate(today.getDate() + diffToMonday);
+
+  headerCells.forEach((th, index) => {
+    if (index === 0) return; // Skip "Time" column
+
+    const currentDate = new Date(monday);
+    currentDate.setDate(monday.getDate() + (index - 1));
+
+    const formattedDate = currentDate.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric"
+    });
+
+    const dayName = th.textContent;
+
+    th.innerHTML = `
+      <div class="day-name">${dayName}</div>
+      <div class="day-date">${formattedDate}</div>
+    `;
+  });
 }
