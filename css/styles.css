@@ -739,3 +739,28 @@ body.internal-page .nav-brand a {
     gap: 6px;
   }
 }
+
+@media (max-width: 768px) {
+  body.home {
+    overflow: auto;
+  }
+
+  body.home main.hero {
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 160px; /* espacio para botones + respiración */
+  }
+
+  body.home footer {
+    position: relative;
+    bottom: auto;
+    background: var(--color-white);
+    color: var(--color-text);
+  }
+
+  body.home footer a,
+  body.home footer p {
+    color: var(--color-text);
+  }
+}
+
