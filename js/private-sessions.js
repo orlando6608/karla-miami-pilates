@@ -58,7 +58,7 @@ function addDatesToTableHeader(tableId) {
     });
 
     const dayName = th.textContent;
-    if (th.querySelector(".day-date")) retur
+    if (th.querySelector(".day-date")) return;
     th.innerHTML = `
       <div class="day-name">${dayName}</div>
       <div class="day-date">${formattedDate}</div>
