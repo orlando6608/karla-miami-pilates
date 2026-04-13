@@ -124,35 +124,40 @@ footer a:hover {
   overflow-x: auto;
 }
 
-#schedule {
+/* =========================================================
+   📅 Shared schedule table styles
+   ========================================================= */
+
+.schedule-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
   background: var(--color-white);
 }
 
-#schedule th,
-#schedule td {
+.schedule-table th,
+.schedule-table td {
   padding: 10px 12px;
   text-align: center;
   border: 1px solid var(--color-border);
 }
 
-#schedule th {
+.schedule-table th {
   background: var(--color-bg);
   color: var(--color-secondary);
   font-weight: 600;
 }
 
-#schedule td.time {
+.schedule-table td.time {
   font-weight: 600;
   background: #F5F5F5;
   color: var(--color-muted);
 }
 
-#schedule td.empty {
+.schedule-table td.empty {
   background: var(--color-bg);
 }
+
 
 /* Available slot */
 td.slot {
