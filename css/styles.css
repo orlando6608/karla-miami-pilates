@@ -372,7 +372,10 @@ body.home {
   position: relative;
   height: 100vh;
   background:
-    url("../images/karla-home.jpg") center top/cover no-repeat;
+    image-set(
+      url("../images/karla-home.webp") type("image/webp"),
+      url("../images/karla-home.jpg")  type("image/jpeg")
+    ) center top/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
