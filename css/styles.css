@@ -486,8 +486,8 @@ body.home footer a {
 /* Secondary CTA */
 .btn-secondary {
   background: transparent;
-  color: var(--shadow-brand);
-  border: 2px solid white;
+  color: var(--color-secundary);
+  border: 2px solid var(--color-secundary);
 }
 
 .btn-secondary:hover {
