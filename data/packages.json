@@ -1,0 +1,34 @@
+{
+  "packages": [
+    {
+      "id": "one-to-one",
+      "title": "Private Session – One to One",
+      "participants": "1 participant",
+      "duration": "50 minutes",
+      "description": "Fully personalized Pilates session tailored to individual goals.",
+      "location": "Flexible location",
+      "photographer": "Optional",
+      "price": "Starting from $120"
+    },
+    {
+      "id": "duo",
+      "title": "Private Session – Duo",
+      "participants": "Up to 2 participants",
+      "duration": "50 minutes",
+      "description": "Shared personalized training for two people.",
+      "location": "Flexible location",
+      "photographer": "Optional",
+      "price": "Starting from $160"
+    },
+    {
+      "id": "small-group",
+      "title": "Small Group Session",
+      "participants": "Up to 6 participants",
+      "duration": "50 minutes",
+      "description": "Group-focused Pilates experience designed for small groups.",
+      "location": "Flexible location",
+      "photographer": "Included",
+      "price": "Starting from $220"
+    }
+  ]
+}

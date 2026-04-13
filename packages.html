@@ -3,46 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Karla Miami Pilates</title>
+  <title>Packages | Karla Miami Pilates</title>
 
-  <meta name="description" content="Pilates instructor in Miami offering studio classes and private sessions.">
+  <meta name="description" content="Private Pilates session packages in Miami. Personalized training for individuals and small groups.">
 
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class="home">
+<body class="internal-page">
 
-  <!-- Header / Navigation -->
+  <!-- Header -->
   <header class="main-header">
     <nav class="nav">
-      <div class="nav-brand">Karla Miami Pilates</div>
+      <div class="nav-brand">
+        <a href="index.html">Karla Miami Pilates</a>
+      </div>
       <ul class="nav-menu">
         <li><a href="about.html">About</a></li>
         <li><a href="gyms-calendar.html">Gyms Calendar</a></li>
         <li><a href="private-sessions.html">Private Sessions</a></li>
-        <li><a href="packages.html">Packages</a></li>
+        <li class="active"><a href="packages.html">Packages</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero Fullscreen -->
-  <main class="hero">
-    <div class="hero-overlay"></div>
+  <main>
 
-    <div class="hero-content">
-      <h1>Karla Miami Pilates</h1>
+    <section class="page-intro">
+      <h1>Private Session Packages</h1>
       <p>
-        Studio classes · Private sessions · Miami
-      </p>      
-      <div class="hero-actions">
-        <a href="gyms-calendar.html" class="btn btn-primary">
-          View Gym Schedule
-        </a>
-        <a href="private-sessions.html" class="btn btn-secondary">
-          Private Sessions
-        </a>
-      </div>
-    </div>
+        Customized Pilates experiences designed for individuals and small groups.
+        Sessions are tailored to your goals, schedule, and preferred location.
+      </p>
+    </section>
+
+    <section class="packages" id="packages-container">
+      <!-- Packages rendered by JS -->
+    </section>
+
+    <section class="cta-section cta-secondary">
+      <h2>Want to check availability first?</h2>
+      <p>
+        View the available time slots for private sessions and find the option
+        that best fits your schedule.
+      </p>
+
+      <a href="private-sessions.html" class="btn btn-secondary">
+        View Private Session Availability
+      </a>
+    </section>
+
   </main>
 
   <!-- Footer -->
@@ -78,5 +88,6 @@
     </div>
   </footer>
 
+  <script src="js/packages.js"></script>
 </body>
 </html>
