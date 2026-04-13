@@ -4,7 +4,7 @@
 :root {
   --color-brand: #C2185B;       /* Fuchsia */
   --color-secondary: #5F7C77;   /* Sage */
-  --color-bg: #FAFAFA;
+  --color-bg: #FAFAFA; /*#FCE4EC;*/        /* Light pink */
   --color-white: #FFFFFF;
   --color-text: #333333;
   --color-muted: #666666;
