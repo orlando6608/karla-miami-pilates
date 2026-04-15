@@ -34,29 +34,3 @@ function addDatesToTableHeader(tableId) {
     `;
   });
 }
-
-/**
- * Genera el enlace dinámico para gimnasios con plataforma Mariana Tek.
- * @param {string} baseUrl - Ejemplo: 'https://puremotionpilates.us'
- * @param {string} instructorId - El ID de Karla en ese gimnasio.
- * @param {string} locationId - El ID de la sede.
- */
-function generarEnlaceMT(baseUrl, instructorId, locationId) {
-    // Obtenemos la fecha local en formato YYYY-MM-DD
-    const ahora = new Date();
-    const anio = ahora.getFullYear();
-    const mes = String(ahora.getMonth() + 1).padStart(2, '0');
-    const dia = String(ahora.getDate()).padStart(2, '0');
-    const fechaLocal = `${anio}-${mes}-${dia}`;
-
-    // Limpiamos la URL base por si trae una barra al final
-    const urlLimpia = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
-
-    // Construimos la URL con los escapes necesarios para el parámetro _mt
-    return `${urlLimpia}/schedule.html?_mt=%2Fschedule%2Fdaily%2F48541%3FactiveDate%3D${fechaLocal}%26instructors%3D${instructorId}%26locations%3D${locationId}`;
-}
-
-// Ejemplo de uso:
-// const linkPure = generarEnlaceMT('https://puremotionpilates.us', '6865', '48717');
-// const linkVibrant = generarEnlaceMT('https://www.vpvibrantpilates.com', '6150', '48717');
-// console.log(linkPure);

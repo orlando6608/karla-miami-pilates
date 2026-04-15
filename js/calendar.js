@@ -88,6 +88,10 @@ function generarEnlaceMT(baseUrl, instructorId, locationId) {
           return `${urlLimpia}/schedule?_mt=%2Fschedule%2Fdaily%2F48541%3FactiveDate%3D${fechaLocal}%26instructors%3D${instructorId}%26locations%3D${locationId}`;
       }
 }
+// Ejemplo de uso:
+// const linkPure = generarEnlaceMT('https://puremotionpilates.us', '6865', '48717');
+// const linkVibrant = generarEnlaceMT('https://www.vpvibrantpilates.com', '6150', '48717');
+// console.log(linkPure);
 
 function renderLegend(gyms) {
   const legend = document.getElementById("legend");
