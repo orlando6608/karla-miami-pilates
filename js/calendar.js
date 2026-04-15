@@ -15,25 +15,6 @@ fetch("data/availability.json")
     }
   });
 
-// function renderCalendar(data) {
-//   const tbody = document.querySelector("#schedule tbody");
-//   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-//   data.timeSlots.forEach(time => {
-//     const row = document.createElement("tr");
-//     row.innerHTML = `<td class="time">${time}</td>`;
-//     days.forEach(day => {
-//       const slot = data.week[day] && data.week[day][time];
-//       if (slot) {
-//         const gym = data.gyms[slot.gym];
-//         row.insertAdjacentHTML("beforeend", `<td class="slot gym-${gym.id}"><a href="${gym.urlSchedule}" target="_blank"> ${slot.gym} </a></td>`);
-//       } else {
-//         row.innerHTML += `<td class="empty"></td>`;
-//       }
-//     });
-//     tbody.appendChild(row);
-//   });
-// }
-
 function renderCalendar(data) {
   const tbody = document.querySelector("#schedule tbody");
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
