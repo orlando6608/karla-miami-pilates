@@ -1,4 +1,5 @@
-fetch("data/availability.json")
+//fetch("data/availability.json")
+fetch("https://karlamiamiapi-ghf9hthvd5bbemae.eastus2-01.azurewebsites.net/api/GetAvailability")
   .then(res => res.json())
   .then(data => {
     renderCalendar(data);
