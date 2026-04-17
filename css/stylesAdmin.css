@@ -541,3 +541,15 @@ body {
   .form-grid { grid-template-columns: 1fr; }
   .admin-header .brand { font-size: 17px; }
 }
+
+/* ── Para regresar a index.html ── */
+.back-home {
+  display: block;
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.back-home:hover { color: var(--brand); }
