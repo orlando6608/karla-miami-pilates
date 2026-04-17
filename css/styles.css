@@ -218,7 +218,8 @@ td.slot a:hover {
 }
 
 .gym-pure {
-  background: #E7EFF7;
+  background: #E8EDE7;
+  border-left-color: #6B7C65 !important;
 }
 
 .gym-laira {
