@@ -1,4 +1,5 @@
-fetch("data/packages.json")
+// fetch("data/packages.json")
+fetch("https://karlamiamiapi-ghf9hthvd5bbemae.eastus2-01.azurewebsites.net/api/GetPackages")
   .then(res => res.json())
   .then(data => renderPackages(data.packages))
   .catch(err => {
