@@ -247,7 +247,6 @@ td.slot a:hover {
   flex: 1 1 280px;
   padding: 15px;
   border-radius: 8px;
-  background: var(--color-white);
   box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
