@@ -3,22 +3,865 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Karla Miami Pilates</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Admin Panel — Karla Miami Pilates</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand: #C2185B;
+      --brand-light: #FCE4EC;
+      --brand-dark: #880E4F;
+      --sage: #5F7C77;
+      --bg: #FAFAFA;
+      --white: #FFFFFF;
+      --text: #333333;
+      --muted: #666666;
+      --border: #DDDDDD;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-brand: 0 4px 16px rgba(194,24,91,0.2);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Login Screen ── */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #FCE4EC 0%, #FAFAFA 60%, #E8F0EF 100%);
+    }
+
+    .login-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 48px 40px;
+      box-shadow: 0 20px 60px rgba(194,24,91,0.12);
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .login-card .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--brand);
+      margin-bottom: 4px;
+    }
+
+    .login-card .subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 36px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .login-card input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 16px;
+    }
+
+    .login-card input:focus { border-color: var(--brand); }
+
+    .login-card .error {
+      font-size: 13px;
+      color: var(--brand);
+      margin-bottom: 12px;
+      min-height: 18px;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: var(--brand);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-login:hover { background: var(--brand-dark); transform: translateY(-1px); }
+
+    /* ── Admin Panel ── */
+    #admin-panel { display: none; }
+
+    .admin-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .admin-header .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--brand);
+    }
+
+    .admin-header .badge {
+      font-size: 11px;
+      background: var(--brand-light);
+      color: var(--brand);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-left: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-logout {
+      font-size: 13px;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 7px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover { border-color: var(--brand); color: var(--brand); }
+
+    .admin-body {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover { color: var(--brand); }
+    .tab-btn.active { color: var(--brand); border-bottom-color: var(--brand); font-weight: 600; }
+
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* ── Section title ── */
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--brand);
+      margin-bottom: 6px;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    /* ── Schedule Grid ── */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: 80px repeat(7, 1fr);
+      gap: 4px;
+      font-size: 13px;
+    }
+
+    .grid-header {
+      text-align: center;
+      font-weight: 600;
+      color: var(--sage);
+      padding: 8px 4px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .grid-time {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 4px;
+    }
+
+    .grid-cell {
+      min-height: 44px;
+      border-radius: 8px;
+      border: 2px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.18s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .grid-cell:hover { border-color: var(--brand); background: var(--brand-light); }
+
+    .grid-cell.occupied {
+      border: none;
+      flex-direction: column;
+      gap: 2px;
+      padding: 4px;
+    }
+
+    .grid-cell.occupied.gym-vibrant { background: #F7DCE6; }
+    .grid-cell.occupied.gym-pure { background: #E7EFF7; }
+    .grid-cell.occupied.gym-laira { background: #F3ECE4; }
+
+    .grid-cell.occupied .gym-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .grid-cell.occupied .remove-btn {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      width: 16px;
+      height: 16px;
+      background: rgba(194,24,91,0.15);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--brand);
+      line-height: 1;
+      transition: background 0.15s;
+    }
+
+    .grid-cell.occupied .remove-btn:hover { background: var(--brand); color: white; }
+
+    .grid-cell .add-icon {
+      font-size: 18px;
+      color: var(--border);
+      transition: color 0.15s;
+    }
+
+    .grid-cell:hover .add-icon { color: var(--brand); }
+
+    /* ── Private Availability Grid ── */
+    .private-grid {
+      display: grid;
+      grid-template-columns: 80px repeat(7, 1fr);
+      gap: 4px;
+      font-size: 13px;
+    }
+
+    .toggle-cell {
+      min-height: 44px;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.18s;
+      background: var(--bg);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .toggle-cell:hover { border-color: var(--brand); }
+
+    .toggle-cell.available {
+      background: #FCE4EC;
+      border-color: var(--brand);
+      color: var(--brand);
+      font-weight: 600;
+    }
+
+    .toggle-cell.available::after { content: "✓"; }
+    .toggle-cell:not(.available)::after { content: "＋"; color: var(--border); }
+
+    /* ── Packages ── */
+    .package-editor {
+      display: grid;
+      gap: 20px;
+    }
+
+    .package-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 2px solid var(--border);
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+
+    .package-card:hover { border-color: var(--brand); }
+
+    .package-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: var(--brand);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .featured-badge {
+      font-size: 11px;
+      background: var(--brand);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 10px 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      background: var(--white);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--brand); }
+
+    .form-group textarea { resize: vertical; min-height: 70px; }
+
+    /* ── Save button ── */
+    .save-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+      z-index: 50;
+    }
+
+    .save-status {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .save-status.success { color: #2E7D32; }
+    .save-status.error { color: var(--brand); }
+
+    .btn-save {
+      padding: 12px 32px;
+      background: var(--brand);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-brand);
+    }
+
+    .btn-save:hover { background: var(--brand-dark); transform: translateY(-1px); }
+    .btn-save:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: slideUp 0.2s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--brand);
+      margin-bottom: 6px;
+    }
+
+    .modal .modal-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .modal .form-group { margin-bottom: 16px; }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn-cancel {
+      flex: 1;
+      padding: 11px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-cancel:hover { border-color: var(--brand); }
+
+    .btn-confirm {
+      flex: 1;
+      padding: 11px;
+      background: var(--brand);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-confirm:hover { background: var(--brand-dark); }
+
+    @media (max-width: 768px) {
+      .schedule-grid, .private-grid { grid-template-columns: 60px repeat(7, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
+      .admin-header .brand { font-size: 17px; }
+    }
+  </style>
 </head>
 <body>
-<section>
-  <h2>Trainer Login</h2>
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <div id="editor" style="display:none;">
-    <h3>Edit Weekly Availability</h3>
-    <textarea id="jsonEditor" rows="20" style="width:100%;"></textarea>
-    <button onclick="downloadJSON()">Download Updated JSON</button>
+
+<!-- ── Login Screen ── -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="logo">Karla Miami Pilates</div>
+    <div class="subtitle">Admin Panel</div>
+    <input type="password" id="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()">
+    <div class="error" id="login-error"></div>
+    <button class="btn-login" onclick="login()">Sign In</button>
   </div>
-</section>
- 
-<script src="js/auth.js"></script>
-<script src="js/admin.js"></script>
+</div>
+
+<!-- ── Admin Panel ── -->
+<div id="admin-panel">
+  <header class="admin-header">
+    <div>
+      <span class="brand">Karla Miami Pilates</span>
+      <span class="badge">Admin</span>
+    </div>
+    <button class="btn-logout" onclick="logout()">Log out</button>
+  </header>
+
+  <div class="admin-body">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('availability', this)">📅 Public Schedule</button>
+      <button class="tab-btn" onclick="switchTab('private', this)">🔒 Private Sessions</button>
+      <button class="tab-btn" onclick="switchTab('packages', this)">📦 Packages</button>
+    </div>
+
+    <!-- ── Tab 1: Public Availability ── -->
+    <div id="tab-availability" class="tab-pane active">
+      <div class="section-title">Public Schedule</div>
+      <p class="section-desc">Click an empty cell to add a class. Click ✕ on a class to remove it.</p>
+      <div class="card">
+        <div id="availability-grid"></div>
+      </div>
+    </div>
+
+    <!-- ── Tab 2: Private Availability ── -->
+    <div id="tab-private" class="tab-pane">
+      <div class="section-title">Private Session Availability</div>
+      <p class="section-desc">Click a cell to mark it as available or unavailable for private sessions.</p>
+      <div class="card">
+        <div id="private-grid"></div>
+      </div>
+    </div>
+
+    <!-- ── Tab 3: Packages ── -->
+    <div id="tab-packages" class="tab-pane">
+      <div class="section-title">Packages</div>
+      <p class="section-desc">Edit the details and pricing for each package.</p>
+      <div class="package-editor" id="packages-editor"></div>
+    </div>
+  </div>
+
+  <div class="save-bar">
+    <span class="save-status" id="save-status"></span>
+    <button class="btn-save" id="btn-save" onclick="saveCurrentTab()">Save Changes</button>
+  </div>
+</div>
+
+<!-- ── Modal: Add Class ── -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h3>Add Class</h3>
+    <p class="modal-desc" id="modal-desc"></p>
+    <div class="form-group">
+      <label>Gym</label>
+      <select id="modal-gym"></select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-confirm" onclick="confirmAddClass()">Add Class</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API_BASE = "https://karlamiamiapi-ghf9hthvd5bbemae.eastus2-01.azurewebsites.net/api";
+  const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+  const PASSWORD = "karla123";
+
+  let availabilityData = null;
+  let privateData = null;
+  let packagesData = null;
+  let pendingCell = null;
+
+  // ── Auth ──
+  function login() {
+    const pwd = document.getElementById("password").value;
+    if (pwd === PASSWORD) {
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("admin-panel").style.display = "block";
+      loadAll();
+    } else {
+      document.getElementById("login-error").textContent = "Incorrect password. Try again.";
+    }
+  }
+
+  function logout() {
+    document.getElementById("admin-panel").style.display = "none";
+    document.getElementById("login-screen").style.display = "flex";
+    document.getElementById("password").value = "";
+  }
+
+  // ── Load all data ──
+  async function loadAll() {
+    const [a, p, pk] = await Promise.all([
+      fetch(`${API_BASE}/GetAvailability`).then(r => r.json()),
+      fetch(`${API_BASE}/GetPrivateAvailability`).then(r => r.json()),
+      fetch(`${API_BASE}/GetPackages`).then(r => r.json()),
+    ]);
+    availabilityData = a;
+    privateData = p;
+    packagesData = pk;
+    renderAvailabilityGrid();
+    renderPrivateGrid();
+    renderPackagesEditor();
+  }
+
+  // ── Tabs ──
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`tab-${name}`).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── Availability Grid ──
+  function renderAvailabilityGrid() {
+    const container = document.getElementById("availability-grid");
+    const gyms = availabilityData.gyms;
+    const timeSlots = availabilityData.timeSlots;
+    const week = availabilityData.week;
+
+    let html = '<div class="schedule-grid">';
+    html += '<div class="grid-header"></div>';
+    DAYS.forEach(d => html += `<div class="grid-header">${d.slice(0,3)}</div>`);
+
+    timeSlots.forEach(time => {
+      html += `<div class="grid-time">${time}</div>`;
+      DAYS.forEach(day => {
+        const slot = week[day] && week[day][time];
+        if (slot) {
+          const gym = gyms[slot.gym];
+          html += `
+            <div class="grid-cell occupied gym-${gym.id}" data-day="${day}" data-time="${time}">
+              <button class="remove-btn" onclick="removeClass('${day}','${time}',event)">✕</button>
+              <span class="gym-label">${slot.gym.split(' ')[0]}</span>
+            </div>`;
+        } else {
+          html += `<div class="grid-cell" data-day="${day}" data-time="${time}" onclick="openAddModal('${day}','${time}')">
+            <span class="add-icon">+</span>
+          </div>`;
+        }
+      });
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
+  function openAddModal(day, time) {
+    pendingCell = { day, time };
+    document.getElementById("modal-desc").textContent = `${day} at ${time}`;
+    const select = document.getElementById("modal-gym");
+    select.innerHTML = Object.keys(availabilityData.gyms)
+      .map(name => `<option value="${name}">${name}</option>`).join('');
+    document.getElementById("modal-overlay").classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById("modal-overlay").classList.remove('open');
+    pendingCell = null;
+  }
+
+  function confirmAddClass() {
+    const gymName = document.getElementById("modal-gym").value;
+    const { day, time } = pendingCell;
+    if (!availabilityData.week[day]) availabilityData.week[day] = {};
+    availabilityData.week[day][time] = { gym: gymName };
+    closeModal();
+    renderAvailabilityGrid();
+  }
+
+  function removeClass(day, time, event) {
+    event.stopPropagation();
+    delete availabilityData.week[day][time];
+    if (Object.keys(availabilityData.week[day]).length === 0) delete availabilityData.week[day];
+    renderAvailabilityGrid();
+  }
+
+  // ── Private Grid ──
+  function renderPrivateGrid() {
+    const container = document.getElementById("private-grid");
+    const timeSlots = privateData.timeSlots;
+    const week = privateData.week;
+
+    let html = '<div class="private-grid">';
+    html += '<div class="grid-header"></div>';
+    DAYS.forEach(d => html += `<div class="grid-header">${d.slice(0,3)}</div>`);
+
+    timeSlots.forEach(time => {
+      html += `<div class="grid-time">${time}</div>`;
+      DAYS.forEach(day => {
+        const isAvailable = week[day] && week[day][time];
+        html += `<div class="toggle-cell ${isAvailable ? 'available' : ''}" 
+          onclick="togglePrivateSlot('${day}','${time}')"></div>`;
+      });
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
+  function togglePrivateSlot(day, time) {
+    if (!privateData.week[day]) privateData.week[day] = {};
+    if (privateData.week[day][time]) {
+      delete privateData.week[day][time];
+      if (Object.keys(privateData.week[day]).length === 0) delete privateData.week[day];
+    } else {
+      privateData.week[day][time] = true;
+    }
+    renderPrivateGrid();
+  }
+
+  // ── Packages Editor ──
+  function renderPackagesEditor() {
+    const container = document.getElementById("packages-editor");
+    container.innerHTML = packagesData.packages.map((pkg, i) => `
+      <div class="package-card">
+        <h3>
+          ${pkg.title}
+          ${pkg.featured ? '<span class="featured-badge">Featured</span>' : ''}
+        </h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" value="${pkg.title}" onchange="updatePackage(${i},'title',this.value)">
+          </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input type="text" value="${pkg.price}" onchange="updatePackage(${i},'price',this.value)">
+          </div>
+          <div class="form-group">
+            <label>Participants</label>
+            <input type="text" value="${pkg.participants}" onchange="updatePackage(${i},'participants',this.value)">
+          </div>
+          <div class="form-group">
+            <label>Duration</label>
+            <input type="text" value="${pkg.duration}" onchange="updatePackage(${i},'duration',this.value)">
+          </div>
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" value="${pkg.location}" onchange="updatePackage(${i},'location',this.value)">
+          </div>
+          <div class="form-group">
+            <label>Photo Session</label>
+            <input type="text" value="${pkg.photoSession || ''}" onchange="updatePackage(${i},'photoSession',this.value)">
+          </div>
+          <div class="form-group full">
+            <label>Description</label>
+            <textarea onchange="updatePackage(${i},'description',this.value)">${pkg.description}</textarea>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function updatePackage(index, field, value) {
+    packagesData.packages[index][field] = value;
+  }
+
+  // ── Save ──
+  async function saveCurrentTab() {
+    const activeTab = document.querySelector('.tab-pane.active').id;
+    const btn = document.getElementById("btn-save");
+    const status = document.getElementById("save-status");
+
+    btn.disabled = true;
+    btn.textContent = "Saving…";
+    status.textContent = "";
+    status.className = "save-status";
+
+    try {
+      let url, body;
+      if (activeTab === 'tab-availability') {
+        url = `${API_BASE}/PostAvailability`;
+        body = availabilityData;
+      } else if (activeTab === 'tab-private') {
+        url = `${API_BASE}/PostPrivateAvailability`;
+        body = privateData;
+      } else {
+        url = `${API_BASE}/PostPackages`;
+        body = packagesData;
+      }
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      if (res.ok) {
+        status.textContent = "✓ Changes saved successfully";
+        status.className = "save-status success";
+      } else {
+        throw new Error("Server error");
+      }
+    } catch (e) {
+      status.textContent = "✕ Error saving. Please try again.";
+      status.className = "save-status error";
+    }
+
+    btn.disabled = false;
+    btn.textContent = "Save Changes";
+    setTimeout(() => { status.textContent = ""; }, 4000);
+  }
+</script>
 </body>
 </html>
