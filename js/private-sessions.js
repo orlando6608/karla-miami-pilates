@@ -1,5 +1,6 @@
 
-fetch("data/private-availability.json")
+// fetch("data/private-availability.json")
+fetch("https://karlamiamiapi-ghf9hthvd5bbemae.eastus2-01.azurewebsites.net/api/GetPrivateAvailability")
   .then(res => res.json())
   .then(data => {
     renderPrivateCalendar(data);
