@@ -647,6 +647,16 @@ body.internal-page .nav-brand a {
   box-shadow: none;
 }
 
+.cta-secondary .btn-secondary {
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+
+.cta-secondary .btn-secondary:hover {
+  background: var(--color-brand);
+  color: white;
+}
+
 /* =========================================================
    📩 Global Footer / Contact (compact)
    ========================================================= */
