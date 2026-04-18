@@ -1,19 +1,21 @@
 /* =========================================================
-   🎨 CSS Variables — Brand Colors (Fuchsia-based palette)
+   🎨 CSS Variables — Brand Colors & Typography
    ========================================================= */
 :root {
   --color-brand: #C2185B;       /* Fuchsia */
   --color-secondary: #5F7C77;   /* Sage */
-  --color-bg: #FAFAFA; /*#FCE4EC;*/        /* Light pink */
+  --color-bg: #FAFAFA;
   --color-white: #FFFFFF;
   --color-text: #333333;
   --color-muted: #666666;
   --color-border: #DDDDDD;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
 
   --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-brand: 0 4px 12px rgba(194, 24, 91, 0.25);
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
 }
 
 /* =========================================================
@@ -39,6 +41,7 @@ h1, h2, h3, h4 {
   font-weight: 500;
   letter-spacing: 0.3px;
   line-height: 1.2;
+  margin-top: 0;
 }
 
 section {
@@ -121,7 +124,6 @@ footer a:hover {
   animation: fadeUp 0.6s ease forwards;
 }
 
-
 .about-text h2 {
   color: var(--color-brand);
   font-size: 32px;
@@ -129,19 +131,19 @@ footer a:hover {
   margin-bottom: 14px;
 }
 
+.about-text p {
+  line-height: 1.65;
+  margin-bottom: 18px;
+  color: var(--color-text);
+}
+
+/* Primera frase en itálica — efecto editorial */
 .about-text p:first-of-type {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 19px;
   line-height: 1.5;
   color: #555;
-}
-
-
-.about-text p {
-  line-height: 1.65;
-  margin-bottom: 18px;
-  color: var(--color-text);
 }
 
 .about-subtitle {
@@ -157,10 +159,10 @@ footer a:hover {
 .about-signature {
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
   color: var(--color-brand);
   margin-bottom: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
@@ -169,17 +171,12 @@ footer a:hover {
   }
 }
 
-
 /* =========================================================
    📅 Schedule table
    ========================================================= */
 .table-wrapper {
   overflow-x: auto;
 }
-
-/* =========================================================
-   📅 Shared schedule table styles
-   ========================================================= */
 
 .schedule-table {
   width: 100%;
@@ -199,6 +196,10 @@ footer a:hover {
   background: var(--color-bg);
   color: var(--color-secondary);
   font-weight: 600;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .schedule-table td.time {
@@ -210,7 +211,6 @@ footer a:hover {
 .schedule-table td.empty {
   background: var(--color-bg);
 }
-
 
 /* Available slot */
 td.slot {
@@ -235,7 +235,7 @@ td.slot a:hover {
 }
 
 /* =========================================================
-   🎨 Gym colors (keep as visual indicator)
+   🎨 Gym colors (visual indicator)
    ========================================================= */
 .gym-vibrant {
   background: #F7DCE6;
@@ -258,9 +258,9 @@ td.slot a:hover {
 }
 
 .legend h3 {
+  margin-bottom: 20px;
   color: var(--color-brand);
   font-size: 24px;
-  margin-bottom: 20px;
 }
 
 #legend {
@@ -306,7 +306,7 @@ td.slot a:hover {
 }
 
 /* =========================================================
-   📱 Responsive
+   📱 Responsive base
    ========================================================= */
 @media (max-width: 768px) {
   .about-container {
@@ -335,7 +335,6 @@ td.slot a:hover {
 /* =========================================================
    🏠 Home / Landing fullscreen
    ========================================================= */
-
 body.home {
   height: 100vh;
   overflow: hidden;
@@ -353,16 +352,21 @@ body.home {
 .nav {
   max-width: 1200px;
   margin: auto;
-  padding: 12px 20px;
+  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.nav-brand {
-  color: var(--color-brand);
+.nav-brand,
+.nav-brand a {
+  font-family: var(--font-serif);
   font-weight: 600;
   font-size: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
 }
 
 .nav-menu {
@@ -376,8 +380,10 @@ body.home {
 .nav-menu a {
   color: white;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   opacity: 0.9;
   transition: color 0.2s ease, opacity 0.2s ease;
 }
@@ -410,7 +416,7 @@ body.home {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.42);
 }
 
 /* Hero content */
@@ -438,12 +444,12 @@ body.home {
   font-size: 20px;
   font-weight: 400;
   color: #F8BBD0;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .hero-content p {
-  font-size: 13px;
-  letter-spacing: 2px;
+  font-size: 12px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   font-weight: 400;
   color: #f5f5f5;
@@ -465,7 +471,7 @@ body.home footer a {
   color: white;
 }
 
-/* Responsive */
+/* Responsive home */
 @media (max-width: 768px) {
   .nav {
     flex-direction: column;
@@ -481,15 +487,18 @@ body.home footer a {
     font-size: 40px;
   }
 
+  .hero-tagline {
+    font-size: 17px;
+  }
+
   .hero-content p {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 
 /* =========================================================
    🚀 Hero CTAs
    ========================================================= */
-
 .hero-actions {
   margin-top: 30px;
   display: flex;
@@ -548,9 +557,8 @@ body.home footer a {
 }
 
 /* =========================================================
-   🔒 Private Sessions
+   🔒 Private Sessions & page intros
    ========================================================= */
-
 .page-intro {
   max-width: 1000px;
   margin: auto;
@@ -573,6 +581,7 @@ body.home footer a {
 #private-calendar h2 {
   color: var(--color-secondary);
   margin-top: 0;
+  font-size: 26px;
 }
 
 .note {
@@ -591,7 +600,6 @@ body.home footer a {
 /* =========================================================
    🧭 Header – internal pages
    ========================================================= */
-
 body.internal-page .main-header {
   position: relative;
   background: var(--color-white);
@@ -613,7 +621,6 @@ body.internal-page .nav-brand a {
 /* =========================================================
    📦 Packages
    ========================================================= */
-
 .packages {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -654,12 +661,13 @@ body.internal-page .nav-brand a {
   font-weight: 600;
   margin: 15px 0;
   color: var(--color-secondary);
+  font-size: 15px;
+  letter-spacing: 0.5px;
 }
 
 /* =========================================================
-   👉 CTA section (Private → Packages)
+   👉 CTA section
    ========================================================= */
-
 .cta-section {
   margin: 60px auto;
   padding: 40px 20px;
@@ -671,9 +679,9 @@ body.internal-page .nav-brand a {
 }
 
 .cta-section h2 {
+  margin-top: 0;
   color: var(--color-brand);
   font-size: 28px;
-  margin-top: 0;
 }
 
 .cta-section p {
@@ -701,25 +709,27 @@ body.internal-page .nav-brand a {
 /* =========================================================
    📩 Global Footer / Contact (compact)
    ========================================================= */
-
 .site-footer {
   background: var(--color-white);
   border-top: 1px solid var(--color-border);
-  margin-top: 50px; /* reduced vertical spacing */
+  margin-top: 50px;
 }
 
-/* Top footer content */
 .footer-content {
   max-width: 1000px;
   margin: auto;
-  padding: 24px 20px 12px; /* compact Y spacing */
+  padding: 24px 20px 12px;
   display: flex;
   justify-content: space-between;
   gap: 24px;
 }
 
 .footer-brand strong {
-  font-size: 14px;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .footer-brand p {
@@ -731,8 +741,12 @@ body.internal-page .nav-brand a {
 /* Contact block */
 .footer-contact h4 {
   margin: 0 0 6px;
-  font-size: 14px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   color: var(--color-brand);
+  font-family: var(--font-sans);
+  font-weight: 600;
 }
 
 .footer-contact p {
@@ -776,10 +790,11 @@ body.internal-page .nav-brand a {
   font-size: 12px;
   color: var(--color-muted);
   margin-top: 4px;
+  font-style: italic;
+  font-family: var(--font-serif);
 }
 
-
-/* 📱 Responsive */
+/* 📱 Responsive footer */
 @media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
@@ -801,7 +816,7 @@ body.internal-page .nav-brand a {
   body.home main.hero {
     height: auto;
     min-height: 100vh;
-    padding-bottom: 160px; /* espacio para botones + respiración */
+    padding-bottom: 160px;
   }
 
   body.home footer {
@@ -820,14 +835,20 @@ body.internal-page .nav-brand a {
 /* =========================================================
    📆 Table header day + date
    ========================================================= */
-
 .day-name {
   font-weight: 600;
   color: var(--color-secondary);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .day-date {
   font-size: 12px;
   color: var(--color-muted);
   margin-top: 2px;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 400;
 }
