@@ -41,6 +41,7 @@ async function loadAll() {
   renderAvailabilityGrid();
   renderPrivateGrid();
   renderPackagesEditor();
+  renderGymsEditor();
 }
 
 // ── Tabs ──
@@ -209,7 +210,7 @@ async function saveCurrentTab() {
 
   try {
     let url, body;
-    if (activeTab === 'tab-availability') {
+    if (activeTab === 'tab-availability' || activeTab === 'tab-studios') {
       url = `${API_BASE}/PostAvailability`;
       body = availabilityData;
     } else if (activeTab === 'tab-private') {
@@ -240,4 +241,103 @@ async function saveCurrentTab() {
   btn.disabled = false;
   btn.textContent = "Save Changes";
   setTimeout(() => { status.textContent = ""; }, 4000);
+}
+
+// ── Studios Editor ──
+function renderGymsEditor() {
+  const container = document.getElementById("studios-editor");
+  const gyms = availabilityData.gyms;
+
+  const gymsInUse = new Set();
+  Object.values(availabilityData.week).forEach(daySlots => {
+    Object.values(daySlots).forEach(slot => gymsInUse.add(slot.gym));
+  });
+
+  const cards = Object.entries(gyms).map(([name, gym]) => `
+    <div class="studio-card">
+      <div class="studio-card-header">
+        <h3>${name}</h3>
+        <button type="button" class="btn-remove-studio" onclick="removeGym('${name}')"
+          ${gymsInUse.has(name) ? 'disabled title="Studio is in use in the schedule"' : ''}>Remove</button>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" value="${name}" onchange="renameGym('${name}', this.value)">
+        </div>
+        <div class="form-group">
+          <label>ID (CSS class)</label>
+          <input type="text" value="${gym.id}" onchange="updateGymField('${name}', 'id', this.value)">
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  container.innerHTML = cards + `
+    <button type="button" class="btn-add-studio" onclick="showAddStudioForm()">+ Add New Studio</button>
+    <div id="add-studio-form" class="studio-card" style="display:none">
+      <h3>New Studio</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="new-gym-name" placeholder="e.g. Pure Yoga">
+        </div>
+        <div class="form-group">
+          <label>ID (CSS class suffix)</label>
+          <input type="text" id="new-gym-id" placeholder="e.g. pure">
+        </div>
+      </div>
+      <div class="modal-actions" style="margin-top:16px">
+        <button type="button" class="btn-cancel" onclick="hideAddStudioForm()">Cancel</button>
+        <button type="button" class="btn-confirm" onclick="confirmAddStudio()">Add Studio</button>
+      </div>
+    </div>
+  `;
+}
+
+function renameGym(oldName, newName) {
+  newName = newName.trim();
+  if (!newName || newName === oldName) return;
+  if (availabilityData.gyms[newName]) {
+    alert(`A studio named "${newName}" already exists.`);
+    renderGymsEditor();
+    return;
+  }
+  availabilityData.gyms[newName] = availabilityData.gyms[oldName];
+  delete availabilityData.gyms[oldName];
+  Object.values(availabilityData.week).forEach(daySlots => {
+    Object.values(daySlots).forEach(slot => {
+      if (slot.gym === oldName) slot.gym = newName;
+    });
+  });
+  renderGymsEditor();
+}
+
+function updateGymField(name, field, value) {
+  availabilityData.gyms[name][field] = value.trim();
+}
+
+function removeGym(name) {
+  if (!confirm(`Remove studio "${name}"?`)) return;
+  delete availabilityData.gyms[name];
+  renderGymsEditor();
+}
+
+function showAddStudioForm() {
+  document.getElementById("add-studio-form").style.display = "block";
+}
+
+function hideAddStudioForm() {
+  document.getElementById("add-studio-form").style.display = "none";
+  document.getElementById("new-gym-name").value = "";
+  document.getElementById("new-gym-id").value = "";
+}
+
+function confirmAddStudio() {
+  const name = document.getElementById("new-gym-name").value.trim();
+  const id = document.getElementById("new-gym-id").value.trim();
+  if (!name || !id) { alert("Please fill in both Name and ID."); return; }
+  if (availabilityData.gyms[name]) { alert(`A studio named "${name}" already exists.`); return; }
+  availabilityData.gyms[name] = { id };
+  renderGymsEditor();
 }
