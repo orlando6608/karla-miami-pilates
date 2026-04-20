@@ -34,7 +34,7 @@ function renderPackages(packages) {
       <p class="price">${pkg.price}</p>
       
       <button class="btn btn-primary"
-        onclick="selectPackage('${pkg.title}')">
+        onclick="openModal('${pkg.title}')">
         Request information
       </button>
     `;
@@ -43,31 +43,59 @@ function renderPackages(packages) {
   });
 }
 
-function selectPackage(title) {
-  document.getElementById("package-field").value = title;
-  document.getElementById("contact-section").style.display = "block";
-  document.getElementById("contact-section").scrollIntoView({ behavior: "smooth" });
+
+const modal = document.getElementById("contact-modal");
+const closeModalBtn = document.getElementById("close-modal");
+const packageField = document.getElementById("package-field");
+
+function openModal(packageTitle) {
+  packageField.value = packageTitle;
+  modal.style.display = "flex";
+  modal.setAttribute("aria-hidden", "false");
 }
 
+function closeModal() {
+  modal.style.display = "none";
+  modal.setAttribute("aria-hidden", "true");
+}
+
+closeModalBtn.addEventListener("click", closeModal);
+
+// Close on backdrop click
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) closeModal();
+});
+
+/* EmailJS submit */
 const form = document.getElementById("contact-form");
 const status = document.getElementById("form-status");
+const submitBtn = document.getElementById("submit-btn");
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  status.textContent = "Sending…";
+  submitBtn.classList.add("loading");
+  submitBtn.disabled = true;
+  status.textContent = "";
+
 
   emailjs.sendForm(
     "service_r2ll86x",
     "template_w0y10x9",
     form
   )
-  .then(() => {
+  
+then(() => {
     status.textContent = "✅ Message sent successfully!";
     form.reset();
+    setTimeout(closeModal, 1200);
   })
-  .catch(error => {
-    console.error("EmailJS error:", error);
-    status.textContent = "❌ Error sending message. Please try again.";
+  .catch(() => {
+    status.textContent = "❌ Could not send message. Please try again.";
+  })
+  .finally(() => {
+    submitBtn.classList.remove("loading");
+    submitBtn.disabled = false;
   });
 });
+
