@@ -948,6 +948,11 @@ body.internal-page .nav-brand a {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.contact-form textarea {
+  resize: vertical;
+  max-width: 100%;
+}
+
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
