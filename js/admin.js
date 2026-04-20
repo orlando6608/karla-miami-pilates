@@ -253,7 +253,9 @@ function renderGymsEditor() {
     Object.values(daySlots).forEach(slot => gymsInUse.add(slot.gym));
   });
 
-  const cards = Object.entries(gyms).map(([name, gym]) => `
+  const cards = Object.entries(gyms).map(([name, gym]) => {
+    const mt = gym.mt || {};
+    return `
     <div class="studio-card">
       <div class="studio-card-header">
         <h3>${name}</h3>
@@ -267,11 +269,31 @@ function renderGymsEditor() {
         </div>
         <div class="form-group">
           <label>ID (CSS class)</label>
-          <input type="text" value="${gym.id}" onchange="updateGymField('${name}', 'id', this.value)">
+          <input type="text" value="${gym.id || ''}" onchange="updateGymField('${name}', 'id', this.value)">
+        </div>
+        <div class="form-group full">
+          <label>Address</label>
+          <input type="text" value="${gym.address || ''}" onchange="updateGymField('${name}', 'address', this.value)">
+        </div>
+        <div class="form-group">
+          <label>Website URL</label>
+          <input type="url" value="${gym.url || ''}" onchange="updateGymField('${name}', 'url', this.value)">
+        </div>
+        <div class="form-group">
+          <label>Schedule URL</label>
+          <input type="url" value="${gym.urlSchedule || ''}" onchange="updateGymField('${name}', 'urlSchedule', this.value)">
+        </div>
+        <div class="form-group">
+          <label>MT Instructor ID</label>
+          <input type="text" value="${mt.instructorId || ''}" onchange="updateGymMt('${name}', 'instructorId', this.value)">
+        </div>
+        <div class="form-group">
+          <label>MT Location ID</label>
+          <input type="text" value="${mt.locationId || ''}" onchange="updateGymMt('${name}', 'locationId', this.value)">
         </div>
       </div>
     </div>
-  `).join('');
+  `}).join('');
 
   container.innerHTML = cards + `
     <button type="button" class="btn-add-studio" onclick="showAddStudioForm()">+ Add New Studio</button>
@@ -285,6 +307,26 @@ function renderGymsEditor() {
         <div class="form-group">
           <label>ID (CSS class suffix)</label>
           <input type="text" id="new-gym-id" placeholder="e.g. pure">
+        </div>
+        <div class="form-group full">
+          <label>Address</label>
+          <input type="text" id="new-gym-address" placeholder="e.g. 123 Main St, Miami, FL 33101">
+        </div>
+        <div class="form-group">
+          <label>Website URL</label>
+          <input type="url" id="new-gym-url" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label>Schedule URL</label>
+          <input type="url" id="new-gym-urlSchedule" placeholder="https://.../schedule">
+        </div>
+        <div class="form-group">
+          <label>MT Instructor ID</label>
+          <input type="text" id="new-gym-instructorId" placeholder="optional">
+        </div>
+        <div class="form-group">
+          <label>MT Location ID</label>
+          <input type="text" id="new-gym-locationId" placeholder="optional">
         </div>
       </div>
       <div class="modal-actions" style="margin-top:16px">
@@ -317,6 +359,11 @@ function updateGymField(name, field, value) {
   availabilityData.gyms[name][field] = value.trim();
 }
 
+function updateGymMt(name, field, value) {
+  if (!availabilityData.gyms[name].mt) availabilityData.gyms[name].mt = {};
+  availabilityData.gyms[name].mt[field] = value.trim();
+}
+
 function removeGym(name) {
   if (!confirm(`Remove studio "${name}"?`)) return;
   delete availabilityData.gyms[name];
@@ -329,15 +376,28 @@ function showAddStudioForm() {
 
 function hideAddStudioForm() {
   document.getElementById("add-studio-form").style.display = "none";
-  document.getElementById("new-gym-name").value = "";
-  document.getElementById("new-gym-id").value = "";
+  ["new-gym-name","new-gym-id","new-gym-address","new-gym-url","new-gym-urlSchedule","new-gym-instructorId","new-gym-locationId"]
+    .forEach(id => { document.getElementById(id).value = ""; });
 }
 
 function confirmAddStudio() {
   const name = document.getElementById("new-gym-name").value.trim();
-  const id = document.getElementById("new-gym-id").value.trim();
+  const id   = document.getElementById("new-gym-id").value.trim();
   if (!name || !id) { alert("Please fill in both Name and ID."); return; }
   if (availabilityData.gyms[name]) { alert(`A studio named "${name}" already exists.`); return; }
-  availabilityData.gyms[name] = { id };
+
+  const gym = { id };
+  const address      = document.getElementById("new-gym-address").value.trim();
+  const url          = document.getElementById("new-gym-url").value.trim();
+  const urlSchedule  = document.getElementById("new-gym-urlSchedule").value.trim();
+  const instructorId = document.getElementById("new-gym-instructorId").value.trim();
+  const locationId   = document.getElementById("new-gym-locationId").value.trim();
+
+  if (address)     gym.address = address;
+  if (url)         gym.url = url;
+  if (urlSchedule) gym.urlSchedule = urlSchedule;
+  if (instructorId || locationId) gym.mt = { instructorId, locationId };
+
+  availabilityData.gyms[name] = gym;
   renderGymsEditor();
 }
