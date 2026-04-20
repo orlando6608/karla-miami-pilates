@@ -44,6 +44,35 @@
       <!-- Packages rendered by JS -->
     </section>
 
+    <section class="contact-section" id="contact-section" style="display:none;">
+      <h2>Request information</h2>
+
+      <form id="contact-form">
+        <input type="hidden" name="package" id="package-field">
+
+        <label>
+          Name
+          <input type="text" name="name" required>
+        </label>
+
+        <label>
+          Email
+          <input type="email" name="email" required>
+        </label>
+
+        <label>
+          Message
+          <textarea name="message" required></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary">
+          Send message
+        </button>
+
+        <p id="form-status"></p>
+      </form>
+    </section>
+
     <section class="cta-section cta-secondary">
       <h2>Want to check availability first?</h2>
       <p>
@@ -91,6 +120,12 @@
     </div>
   </footer>
 
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("_hszHJUAKHGCzxKf8"); //pon tu Public Key
+    })();
+  </script>
   <script src="js/packages.js"></script>
 </body>
 </html>

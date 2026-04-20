@@ -32,22 +32,42 @@ function renderPackages(packages) {
       </ul>
 
       <p class="price">${pkg.price}</p>
-
-      <a href="mailto:contact@karlamiami.com
-        ?subject=${encodeURIComponent("Inquiry about " + pkg.title)}
-        &body=${encodeURIComponent(
-          `Hello Karla,
-
-        I am interested in the package: ${pkg.title}.
-        Please let me know availability and pricing details.
-
-        Thank you!`
-        )}"
-        class="btn btn-primary">
+      
+      <button class="btn btn-primary"
+        onclick="selectPackage('${pkg.title}')">
         Request information
-      </a>
+      </button>
     `;
 
     container.appendChild(card);
   });
 }
+
+function selectPackage(title) {
+  document.getElementById("package-field").value = title;
+  document.getElementById("contact-section").style.display = "block";
+  document.getElementById("contact-section").scrollIntoView({ behavior: "smooth" });
+}
+
+const form = document.getElementById("contact-form");
+const status = document.getElementById("form-status");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  status.textContent = "Sending…";
+
+  emailjs.sendForm(
+    "service_r2ll86x",
+    "template_w0y10x9",
+    form
+  )
+  .then(() => {
+    status.textContent = "✅ Message sent successfully!";
+    form.reset();
+  })
+  .catch(error => {
+    console.error("EmailJS error:", error);
+    status.textContent = "❌ Error sending message. Please try again.";
+  });
+});
