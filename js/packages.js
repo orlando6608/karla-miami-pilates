@@ -79,13 +79,9 @@ form.addEventListener("submit", function (e) {
   status.textContent = "";
 
 
-  emailjs.sendForm(
-    "service_r2ll86x",
-    "template_w0y10x9",
-    form
-  )
-  
-then(() => {
+  emailjs
+  .sendForm("service_r2ll86x", "template_w0y10x9", form )  
+  .then(() => {
     status.textContent = "✅ Message sent successfully!";
     form.reset();
     setTimeout(closeModal, 1200);
