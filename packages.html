@@ -91,6 +91,64 @@
     </div>
   </footer>
 
-  <script src="js/packages.js"></script>
+  <!-- Contact Modal -->
+  <div class="modal-overlay" id="contact-modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true">
+
+      <button class="modal-close" id="close-modal" aria-label="Close modal">
+        &times;
+      </button>
+
+    <h2 class="modal-title" id="modal-title">Request information</h2>
+    <div class="modal-card"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="modal-title">
+
+      <p class="modal-subtitle">
+        Tell us a bit about you and we’ll get back to you shortly.
+      </p>
+
+      <form id="contact-form" class="contact-form">
+        <input type="hidden" name="package" id="package-field">
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input id="name" type="text" name="name" placeholder="Your name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" type="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4"
+            placeholder="Tell Karla what you’re looking for"
+            required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
+          <span class="btn-text">Send message</span>
+          <span class="spinner"></span>
+        </button>
+
+        <p class="form-status" id="form-status"></p>
+      </form>
+
+    </div>
+  </div>
+
+  <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer>
+  </script>
+  <script defer>
+    (function () {
+      emailjs.init("_hszHJUAKHGCzxKf8");
+    })();
+  </script>
+  <script src="js/packages.js" defer></script>
+
 </body>
 </html>
