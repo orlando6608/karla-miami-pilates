@@ -33,7 +33,17 @@ function renderPackages(packages) {
 
       <p class="price">${pkg.price}</p>
 
-      <a href="mailto:contact@karlamiami.com" class="btn btn-primary">
+      <a href="mailto:contact@karlamiami.com
+        ?subject=${encodeURIComponent("Inquiry about " + pkg.title)}
+        &body=${encodeURIComponent(
+          `Hello Karla,
+
+        I am interested in the package: ${pkg.title}.
+        Please let me know availability and pricing details.
+
+        Thank you!`
+        )}"
+        class="btn btn-primary">
         Request information
       </a>
     `;
