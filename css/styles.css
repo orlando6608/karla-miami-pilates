@@ -644,6 +644,25 @@ body.internal-page .nav-brand a {
   margin-top: 0;
   color: var(--color-brand);
   font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.featured-badge {
+  font-size: 11px;
+  background: var(--color-brand);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.package-card.featured {
+  border: 2px solid var(--color-brand);
 }
 
 .package-card ul {

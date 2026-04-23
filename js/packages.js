@@ -20,8 +20,13 @@ function renderPackages(packages) {
     const card = document.createElement("article");
     card.className = "package-card";
 
+    if (pkg.featured) card.classList.add('featured');
+
     card.innerHTML = `
-      <h3>${pkg.title}</h3>
+      <h3>
+        ${pkg.title}
+        ${pkg.featured ? '<span class="featured-badge">Featured</span>' : ''}
+      </h3>
 
       <ul>
         <li>${pkg.participants}</li>
