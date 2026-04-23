@@ -3,6 +3,15 @@
  * Include this script before calendar.js and private-sessions.js
  */
 
+async function loadFooter() {
+  const placeholder = document.getElementById('site-footer');
+  if (!placeholder) return;
+  const res = await fetch('footer.html');
+  const html = await res.text();
+  placeholder.outerHTML = html;
+}
+loadFooter();
+
 function addDatesToTableHeader(tableId) {
   const table = document.getElementById(tableId);
   if (!table) return;
