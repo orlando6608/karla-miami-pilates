@@ -153,12 +153,16 @@ function togglePrivateSlot(day, time) {
 // ── Packages Editor ──
 function renderPackagesEditor() {
   const container = document.getElementById("packages-editor");
-  container.innerHTML = packagesData.packages.map((pkg, i) => `
+
+  const cards = packagesData.packages.map((pkg, i) => `
     <div class="package-card">
-      <h3>
-        ${pkg.title}
-        ${pkg.featured ? '<span class="featured-badge">Featured</span>' : ''}
-      </h3>
+      <div class="studio-card-header">
+        <h3>
+          ${pkg.title}
+          ${pkg.featured ? '<span class="featured-badge">Featured</span>' : ''}
+        </h3>
+        <button type="button" class="btn-remove-studio" onclick="removePackage(${i})">Remove</button>
+      </div>
       <div class="form-grid">
         <div class="form-group">
           <label>Title</label>
@@ -188,13 +192,106 @@ function renderPackagesEditor() {
           <label>Description</label>
           <textarea onchange="updatePackage(${i},'description',this.value)">${pkg.description}</textarea>
         </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" ${pkg.featured ? 'checked' : ''} onchange="updatePackage(${i},'featured',this.checked)">
+            Featured
+          </label>
+        </div>
       </div>
     </div>
   `).join('');
+
+  container.innerHTML = cards + `
+    <button type="button" class="btn-add-studio" onclick="showAddPackageForm()">+ Add New Package</button>
+    <div id="add-package-form" class="package-card" style="display:none">
+      <h3>New Package</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="new-pkg-title" placeholder="e.g. Single Session">
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <input type="text" id="new-pkg-price" placeholder="e.g. $120">
+        </div>
+        <div class="form-group">
+          <label>Participants</label>
+          <input type="text" id="new-pkg-participants" placeholder="e.g. 1 person">
+        </div>
+        <div class="form-group">
+          <label>Duration</label>
+          <input type="text" id="new-pkg-duration" placeholder="e.g. 55 min">
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" id="new-pkg-location" placeholder="e.g. Studio / Home">
+        </div>
+        <div class="form-group">
+          <label>Photo Session</label>
+          <input type="text" id="new-pkg-photoSession" placeholder="optional">
+        </div>
+        <div class="form-group full">
+          <label>Description</label>
+          <textarea id="new-pkg-description" placeholder="Package description…"></textarea>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="new-pkg-featured">
+            Featured
+          </label>
+        </div>
+      </div>
+      <div class="modal-actions" style="margin-top:16px">
+        <button type="button" class="btn-cancel" onclick="hideAddPackageForm()">Cancel</button>
+        <button type="button" class="btn-confirm" onclick="confirmAddPackage()">Add Package</button>
+      </div>
+    </div>
+  `;
 }
 
 function updatePackage(index, field, value) {
   packagesData.packages[index][field] = value;
+}
+
+function removePackage(index) {
+  const title = packagesData.packages[index].title || `Package ${index + 1}`;
+  if (!confirm(`Remove package "${title}"?`)) return;
+  packagesData.packages.splice(index, 1);
+  renderPackagesEditor();
+}
+
+function showAddPackageForm() {
+  document.getElementById("add-package-form").style.display = "block";
+}
+
+function hideAddPackageForm() {
+  document.getElementById("add-package-form").style.display = "none";
+  ["new-pkg-title","new-pkg-price","new-pkg-participants","new-pkg-duration",
+   "new-pkg-location","new-pkg-photoSession","new-pkg-description"]
+    .forEach(id => { document.getElementById(id).value = ""; });
+  document.getElementById("new-pkg-featured").checked = false;
+}
+
+function confirmAddPackage() {
+  const title = document.getElementById("new-pkg-title").value.trim();
+  const price = document.getElementById("new-pkg-price").value.trim();
+  if (!title || !price) { alert("Please fill in at least Title and Price."); return; }
+
+  const pkg = {
+    title,
+    price,
+    participants: document.getElementById("new-pkg-participants").value.trim(),
+    duration:     document.getElementById("new-pkg-duration").value.trim(),
+    location:     document.getElementById("new-pkg-location").value.trim(),
+    description:  document.getElementById("new-pkg-description").value.trim(),
+    featured:     document.getElementById("new-pkg-featured").checked,
+  };
+  const photoSession = document.getElementById("new-pkg-photoSession").value.trim();
+  if (photoSession) pkg.photoSession = photoSession;
+
+  packagesData.packages.push(pkg);
+  renderPackagesEditor();
 }
 
 // ── Save ──
